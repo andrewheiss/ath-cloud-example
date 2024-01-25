@@ -86,7 +86,7 @@ And I can use the container tab to look inside the running containers:
 
 ![Docker containers in Visual Studio Code](readme-img/docker-compose-containers.png)
 
-If you use a [Visual Studio Code remote session through SSH](https://code.visualstudio.com/docs/remote/remote-overview), you can do the same things on the remote server. This is super neat because it's really hard to see what's happening in remote Docker containers. Locally, you can use the Docker Dashboard GUI (or Visual Studioe Code) to see what's running, view logs, run commands inside containers, and so on. With Visual Studio Code, you can do similar things with the remote containers.
+If you use a [Visual Studio Code remote session through SSH](https://code.visualstudio.com/docs/remote/remote-overview), you can do the same things on the remote server. This is super neat because it's really hard to see what's happening in remote Docker containers. Locally, you can use the Docker Dashboard GUI (or Visual Studio Code) to see what's running, view logs, run commands inside containers, and so on. With Visual Studio Code, you can do similar things with the remote containers.
 
 
 ### Ports and server names
