@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  nginx-php:
+    image: nginx:mainline-alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - "../sites/:/var/www/html/:ro"
+      
+      # Have to do this mess instead of just mapping everything to /etc/nginx 
+      # because the php container puts stuff in /etc/nginx too
+      - "./nginx-conf/nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx-conf/mime.types:/etc/nginx/mime.types"
+      - "./nginx-conf/conf.d:/etc/nginx/conf.d"
+      - "./nginx-conf/h5bp:/etc/nginx/h5bp"
+      - "./nginx-conf/my_settings:/etc/nginx/my_settings"
+
+      # Use self-signed certificates when running locally
+      - "./ssl-dev/:/etc/letsencrypt/:ro"
+      # - "./letsencrypt/:/etc/letsencrypt/:ro"
+    depends_on:
+      - "php"
+  
+  php:
+    build:
+      dockerfile: "./dockerfiles/php.dockerfile"
+    volumes:
+      - "../sites/:/var/www/html/:ro"
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: mariadb
+    env_file:
+      - "db.env"
+    volumes:
+      - "./db/mariadb:/var/lib/mysql"

@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  certbot-renew:
+    image: certbot/dns-digitalocean
+    volumes:
+      - "./letsencrypt:/etc/letsencrypt"
+      - "../.secrets/certbot/:/etc/certbot"
+    command: "renew --dry-run"
+    # command: "renew"  # Turn off --dry-run in real life
+
+  certbot-andrewheiss:
+    image: certbot/dns-digitalocean
+    volumes:
+      - "./letsencrypt:/etc/letsencrypt"
+      - "../.secrets/certbot/:/etc/certbot"
+    command: "certonly
+              -n
+              --agree-tos
+              --no-eff-email
+              -m andrew@andrewheiss.com
+              --dns-digitalocean
+              --dns-digitalocean-credentials /etc/certbot/dnsdigitalocean.ini
+              --dns-digitalocean-propagation-seconds 60
+              --cert-name andrewheiss.com
+              -d '*.andrewheiss.com'
+              -d '*.classes.andrewheiss.com'
+              -d andrewheiss.com
+              --dry-run
+              "
